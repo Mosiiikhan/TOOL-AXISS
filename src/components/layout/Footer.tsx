@@ -1,3 +1,6 @@
+"use client";
+
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { SITE_NAME } from "@/lib/tools/constants";
@@ -12,8 +15,15 @@ const company = [
 
 const linkClass = "text-brand-200 transition hover:text-white";
 
+const subscribe = () => () => {};
+
 export default function Footer() {
-  const year = new Date().getFullYear();
+  // Server aur build par null, browser mein asli saal.
+  const year = useSyncExternalStore(
+    subscribe,
+    () => new Date().getFullYear(),
+    () => null,
+  );
 
   return (
     <>

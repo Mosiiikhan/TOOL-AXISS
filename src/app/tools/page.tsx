@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import PageHero from "@/components/ui/PageHero";
 import ToolsList from "@/components/tools/ToolsList";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "All Free Online Tools",
   description:
     "Browse all free online image tools: compress, convert and resize your images in your browser with no sign-up.",
-};
+  path: "/tools",
+});
 
 export default function ToolsPage() {
   return (

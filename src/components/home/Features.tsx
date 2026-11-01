@@ -1,3 +1,4 @@
+import { SITE_NAME } from "@/lib/tools/constants";
 const FEATURES = [
   {
     title: "Fast",
@@ -45,7 +46,7 @@ export default function Features() {
       <div className="mx-auto max-w-6xl px-4">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-bold uppercase tracking-wider text-brand-600">
-            Why My Tools
+            Why {SITE_NAME}
           </p>
           <h2 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-brand-900 sm:text-4xl">
             Simple, safe and free

@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import JsonLd from "@/components/seo/JsonLd";
 import ToolPageShell from "@/components/tools/ToolPageShell";
 import { toolWorkspaces } from "@/components/tools/workspaces";
-import { getRelatedTools, getToolBySlug, tools } from "@/lib/tools/tools";
+import { buildMetadata } from "@/lib/metadata";
+import { toolJsonLd } from "@/lib/seo/json-ld";
 import { getSeoPage, publishedSeoPages } from "@/lib/tools/seo-pages";
+import { getRelatedTools, getToolBySlug, tools } from "@/lib/tools/tools";
 import type { SeoPage, Tool } from "@/lib/tools/types";
 
 type Props = { params: Promise<{ slug: string }> };
 
-// Abhi ToolPageShell sirf Tool leta hai, isliye SeoPage ko Tool bana kar dete hain.
-// (Step 3b mein shell ko SEO sections dena sikhayenge.)
+// ToolPageShell Tool leta hai, isliye SeoPage ko Tool ki shakal dete hain.
+// Title "h1 - title" banta hai, taake related cards mein h1 hi dikhe.
 function seoAsTool(p: SeoPage): Tool {
   return {
     slug: p.slug,
@@ -40,11 +43,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const seo = tool ? undefined : getSeoPage(slug);
   const meta = tool ?? seo;
   if (!meta) return {};
-  return {
+  return buildMetadata({
     title: meta.title,
     description: meta.description,
-    alternates: { canonical: `/tools/${slug}` },
-  };
+    path: `/tools/${slug}`,
+  });
 }
 
 export default async function ToolPage({ params }: Props) {
@@ -62,8 +65,11 @@ export default async function ToolPage({ params }: Props) {
     : getRelatedTools(slug);
 
   return (
-    <ToolPageShell tool={shellTool} related={related} seo={seo}>
-      <Workspace preset={seo?.preset} />
-    </ToolPageShell>
+    <>
+      <JsonLd data={toolJsonLd(shellTool, seo?.h1)} />
+      <ToolPageShell tool={shellTool} related={related} seo={seo}>
+        <Workspace preset={seo?.preset} />
+      </ToolPageShell>
+    </>
   );
 }

@@ -1,34 +1,53 @@
-import Button from "@/components/ui/Button";
+import Link from "next/link";
 import ToolCard from "@/components/tools/ToolCard";
+import { getSeoPage } from "@/lib/tools/seo-pages";
 import { tools } from "@/lib/tools/tools";
 
+const POPULAR = [
+  "compress-image-to-100kb",
+  "png-to-jpg",
+  "resize-image-for-instagram",
+  "compress-image-for-whatsapp",
+  "webp-to-jpg",
+  "compress-image-to-kb",
+  "jpg-to-png",
+  "resize-image-in-pixels",
+];
+
 export default function PopularTools() {
+  const pages = POPULAR.map(getSeoPage).filter(
+    (p): p is NonNullable<typeof p> => Boolean(p),
+  );
+
   return (
-    <section className="bg-white py-16 sm:py-20">
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-bold uppercase tracking-wider text-brand-600">
-            Popular tools
-          </p>
-          <h2 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-brand-900 sm:text-4xl">
-            Pick a tool and start
-          </h2>
-          <p className="mt-3 text-slate-600">
-            Each tool is free, fast and works right in your browser.
-          </p>
-        </div>
+    <section className="mx-auto max-w-5xl px-4 py-16">
+      <h2 className="font-display text-3xl font-extrabold text-brand-900">
+        Pick a tool
+      </h2>
+      <p className="mt-2 max-w-xl text-slate-600">
+        Each tool works right in your browser. Add a picture and get your
+        result in seconds.
+      </p>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {tools.map((tool) => (
-            <ToolCard key={tool.slug} tool={tool} />
-          ))}
-        </div>
+      <div className="mt-8 grid gap-5 sm:grid-cols-3">
+        {tools.map((t) => (
+          <ToolCard key={t.slug} tool={t} />
+        ))}
+      </div>
 
-        <div className="mt-10 text-center">
-          <Button href="/tools" variant="secondary" size="lg">
-            See all tools
-          </Button>
-        </div>
+      <h3 className="mt-14 font-display text-xl font-bold text-brand-900">
+        Popular searches
+      </h3>
+      <div className="mt-4 flex flex-wrap gap-2.5">
+        {pages.map((p) => (
+          <Link
+            key={p.slug}
+            href={`/tools/${p.slug}`}
+            className="rounded-full border border-brand-300 bg-brand-100 px-4 py-2 text-sm font-semibold text-brand-800 transition hover:bg-brand-600 hover:text-white"
+          >
+            {p.h1}
+          </Link>
+        ))}
       </div>
     </section>
   );
