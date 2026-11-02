@@ -1,2 +1,2 @@
-export const SITE_NAME = "My Tools";
-export const SITE_URL = "https://example.com";
+export const SITE_NAME = "Tool Axiis";
+export const SITE_URL = "https://www.toolaxiis.com";

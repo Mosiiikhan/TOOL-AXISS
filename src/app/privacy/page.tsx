@@ -6,7 +6,7 @@ import { privacyPolicy } from "@/lib/legal/privacy";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Read how My Tools handles your information. Your images are processed in your browser and are never uploaded to our servers.",
+    "Read how Tool Axiis handles your information. Your images are processed in your browser and are never uploaded to our servers.",
 };
 
 export default function PrivacyPage() {

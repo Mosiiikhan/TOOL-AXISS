@@ -5,7 +5,7 @@ import ContactContent from "@/components/pages/ContactContent";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Have a question, feedback or an idea for a new tool? Get in touch with the My Tools team by email.",
+    "Have a question, feedback or an idea for a new tool? Get in touch with the Tool Axiis team by email.",
 };
 
 export default function ContactPage() {

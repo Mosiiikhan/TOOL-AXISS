@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { SITE_NAME, SITE_URL } from "@/lib/tools/constants";
 import Header from "@/components/layout/Header";
@@ -35,6 +36,7 @@ export default function RootLayout({
         <Header />
         <div className="flex-1">{children}</div>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

@@ -5,7 +5,7 @@ import AboutContent from "@/components/pages/AboutContent";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn why we built My Tools: free online tools that run in your browser, with no sign-up and no file uploads.",
+    "Learn why we built Tools Axiis: free online tools that run in your browser, with no sign-up and no file uploads.",
 };
 
 export default function AboutPage() {
