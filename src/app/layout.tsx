@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
@@ -21,6 +22,10 @@ export const metadata: Metadata = {
   title: `${SITE_NAME} - Free Online Tools`,
   description:
     "Free online image tools. Compress, convert and resize images right in your browser, no signup needed.",
+
+  other: {
+    "google-adsense-account": "ca-pub-9633275747949590",
+  },
 };
 
 export default function RootLayout({

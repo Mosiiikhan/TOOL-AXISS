@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <!-- Test background (baad mein remove kar sakte hain) -->
+  <rect width="128" height="128" fill="#1e293b" rx="16" />
+
+  <!-- Gear Body & Teeth -->
+  <circle cx="64" cy="64" r="30" stroke="#FFFFFF" stroke-width="8" stroke-dasharray="15.7 7.85" />
+  <circle cx="64" cy="64" r="14" stroke="#FFFFFF" stroke-width="7" />
+  
+  <!-- Elliptical Orbit Ring -->
+  <ellipse cx="64" cy="64" rx="54" ry="20" stroke="#FFFFFF" stroke-width="6" transform="rotate(-30 64 64)" />
+  
+  <!-- Vertical Axis Line with Arrowheads -->
+  <line x1="64" y1="18" x2="64" y2="110" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" />
+  <polyline points="50,26 64,8 78,26" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+  <polyline points="50,102 64,120 78,102" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

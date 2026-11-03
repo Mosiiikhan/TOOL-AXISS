@@ -55,8 +55,9 @@ export default function Header() {
 
   const logo = (
     <>
-      <span className="grid size-9 place-items-center rounded-xl bg-linear-to-br from-brand-400 to-brand-700 font-display text-lg font-extrabold text-white shadow-md shadow-brand-600/30">
-        {SITE_NAME[0]}
+      <span className="grid size-9 place-items-center rounded-xl bg-linear-to-br from-brand-400 to-brand-700 shadow-md shadow-brand-600/30">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo.svg" alt="" className="size-6" />
       </span>
       <span className="font-display text-xl font-extrabold tracking-tight text-brand-900">
         {SITE_NAME}

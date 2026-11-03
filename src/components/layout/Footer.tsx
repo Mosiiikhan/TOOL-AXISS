@@ -56,7 +56,8 @@ export default function Footer() {
           <div>
             <Link href="/" className="flex items-center gap-2.5">
               <span className="grid size-10 place-items-center rounded-xl bg-linear-to-br from-brand-400 to-brand-600 font-display text-lg font-extrabold text-white shadow-lg shadow-brand-500/30">
-                {SITE_NAME[0]}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.svg" alt="" className="size-6" />
               </span>
               <span className="font-display text-2xl font-extrabold text-white">
                 {SITE_NAME}
