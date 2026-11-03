@@ -1,7 +1,8 @@
-
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { SITE_NAME, SITE_URL } from "@/lib/tools/constants";
 import Header from "@/components/layout/Header";
@@ -42,6 +43,8 @@ export default function RootLayout({
         <div className="flex-1">{children}</div>
         <Footer />
         <Analytics />
+        <SpeedInsights />
+        <GoogleAnalytics gaId="G-6DERW8HZ7L" />
       </body>
     </html>
   );
