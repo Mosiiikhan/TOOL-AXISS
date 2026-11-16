@@ -10,6 +10,14 @@ type Props = {
   hint?: string;
 };
 
+// Kuch files (jaise .jfif) ka MIME type khali aata hai, unhe naam se pehchante hain
+const KNOWN_IMAGE_EXT = /\.(jfif|jpe?g|png|webp|gif|bmp|avif)$/i;
+const MIME_EXT: Record<string, RegExp> = {
+  "image/jpeg": /\.(jpe?g|jfif)$/i,
+  "image/png": /\.png$/i,
+  "image/webp": /\.webp$/i,
+};
+
 export default function Dropzone({
   onFiles,
   accept = "image/*",
@@ -20,12 +28,25 @@ export default function Dropzone({
   const [dragging, setDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // File chunne wale box mein .jfif bhi dikhe
+  const inputAccept =
+    accept.includes("image/*") || accept.includes("image/jpeg")
+      ? `${accept},.jfif`
+      : accept;
+
   const isAllowed = (f: File) =>
     accept.split(",").some((raw) => {
       const t = raw.trim();
-      if (t.endsWith("/*")) return f.type.startsWith(t.slice(0, -1));
-      if (t.startsWith(".")) return f.name.toLowerCase().endsWith(t);
-      return f.type === t;
+      if (t.endsWith("/*")) {
+        if (f.type.startsWith(t.slice(0, -1))) return true;
+        return t === "image/*" && f.type === "" && KNOWN_IMAGE_EXT.test(f.name);
+      }
+      if (t.startsWith(".")) {
+        return f.name.toLowerCase().endsWith(t.toLowerCase());
+      }
+      if (f.type === t) return true;
+      if (t === "image/jpeg" && f.type === "image/pjpeg") return true;
+      return f.type === "" && MIME_EXT[t]?.test(f.name) === true;
     });
 
   const handle = (list: FileList | null) => {
@@ -109,7 +130,7 @@ export default function Dropzone({
       <input
         ref={inputRef}
         type="file"
-        accept={accept}
+        accept={inputAccept}
         multiple={multiple}
         className="hidden"
         onChange={(e) => {

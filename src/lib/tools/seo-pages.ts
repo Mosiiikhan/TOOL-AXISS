@@ -438,6 +438,97 @@ export const seoPages: SeoPage[] = [
     related: ["jpg-to-png", "webp-to-jpg", "compress-jpg"],
     published: true,
   },
+  {
+    slug: "jfif-to-jpg",
+    tool: "image-converter",
+    title: "JFIF to JPG Converter (JFIF to JPEG) - Free and Instant",
+    h1: "Convert JFIF to JPG or JPEG",
+    description:
+      "Turn a .jfif file into a normal .jpg in seconds. Free, private and no signup, right in your browser.",
+    intro:
+      "A .jfif file is a JPEG picture with a different file ending, and many programs, forms and websites refuse it for that reason alone. This page gives you the same picture as a .jpg (JPEG) that opens almost everywhere. Because a JFIF file is already a JPEG, the picture itself is not compressed again, so nothing is lost. JPG and JPEG are the same format; only the file ending differs. Your file never leaves your device.",
+    steps: [
+      "Add your .jfif file.",
+      "JPG is already chosen. Check the preview and the JFIF to JPG label.",
+      "Look at the new file name, which ends in .jpg.",
+      "Press Download JPG.",
+    ],
+    faqs: [
+      {
+        q: "What is a JFIF file?",
+        a: "JFIF stands for JPEG File Interchange Format. It is a JPEG picture saved with the .jfif ending. Some computers and browsers save downloaded pictures this way.",
+      },
+      {
+        q: "Will I lose quality?",
+        a: "No. The picture is already a JPEG, so the tool keeps it exactly as it is and only changes the file name.",
+      },
+      {
+        q: "Why does a website not accept my .jfif file?",
+        a: "Some forms only look at the file ending. A .jpg ending is the one most sites expect, so converting the name usually solves it.",
+      },
+    ],
+    preset: { outputFormat: "jpg", accept: "image/jpeg,.jfif" },
+    related: ["jfif-to-png", "jfif-to-webp", "compress-jpg"],
+    published: true,
+  },
+  {
+    slug: "jfif-to-png",
+    tool: "image-converter",
+    title: "JFIF to PNG Converter - Free Online Tool",
+    h1: "Convert JFIF to PNG",
+    description:
+      "Change .jfif pictures to PNG for editors and apps that will not open them. Free and private, in your browser.",
+    intro:
+      "Some design programs, editing apps and websites will not open a .jfif file but work fine with PNG. This page converts your JFIF picture to PNG in your browser. PNG saves every pixel without losing more detail, but it cannot bring back detail that JPEG already lost, and the file will usually be bigger. Nothing is uploaded.",
+    steps: [
+      "Add one or more .jfif files.",
+      "Leave the format on PNG.",
+      "Check the new size next to the original.",
+      "Press Download PNG.",
+    ],
+    faqs: [
+      {
+        q: "My editor does not open .jfif. Is PNG the best choice?",
+        a: "PNG works in almost every editor. If you only need the file to open and want a small size, converting to JPG is lighter.",
+      },
+      {
+        q: "Will PNG make my picture sharper?",
+        a: "No. The picture looks the same. PNG only stops it from losing more detail when you save it again.",
+      },
+    ],
+    preset: { outputFormat: "png", accept: "image/jpeg,.jfif" },
+    related: ["jfif-to-jpg", "jfif-to-webp", "jpg-to-png"],
+    published: true,
+  },
+  {
+    slug: "jfif-to-webp",
+    tool: "image-converter",
+    title: "JFIF to WebP Converter - Make Images Smaller",
+    h1: "Convert JFIF to WebP",
+    description:
+      "Turn .jfif pictures into smaller WebP files for websites. Free and private, in your browser.",
+    intro:
+      "If you want to put a .jfif picture on a website, WebP is usually a lighter choice, and the page loads faster. This page converts your JFIF to WebP in your browser. Modern browsers show WebP, but some older programs and some forms do not accept it, so keep your original file too.",
+    steps: [
+      "Add your .jfif files.",
+      "Leave the format on WebP and set the quality.",
+      "Compare the new size with the original.",
+      "Press Download WebP.",
+    ],
+    faqs: [
+      {
+        q: "Is the WebP smaller than my .jfif?",
+        a: "Usually yes at a similar look, but not always. The tool shows the new size next to the original so you can check.",
+      },
+      {
+        q: "Will WebP open everywhere?",
+        a: "All current browsers show WebP, but some older programs and forms do not accept it. If a form refuses the file, use JPG instead.",
+      },
+    ],
+    preset: { outputFormat: "webp", accept: "image/jpeg,.jfif" },
+    related: ["jfif-to-jpg", "jfif-to-png", "jpg-to-webp"],
+    published: true,
+  },
 
   // ---------- RESIZE ----------
   {
