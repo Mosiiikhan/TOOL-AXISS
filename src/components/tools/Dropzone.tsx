@@ -11,7 +11,7 @@ type Props = {
 };
 
 // Kuch files (jaise .jfif) ka MIME type khali aata hai, unhe naam se pehchante hain
-const KNOWN_IMAGE_EXT = /\.(jfif|jpe?g|png|webp|gif|bmp|avif)$/i;
+const KNOWN_IMAGE_EXT = /\.(jfif|jpe?g|png|webp|gif|bmp|avif|heic|heif)$/i;
 const MIME_EXT: Record<string, RegExp> = {
   "image/jpeg": /\.(jpe?g|jfif)$/i,
   "image/png": /\.png$/i,
@@ -31,7 +31,7 @@ export default function Dropzone({
   // File chunne wale box mein .jfif bhi dikhe
   const inputAccept =
     accept.includes("image/*") || accept.includes("image/jpeg")
-      ? `${accept},.jfif`
+            ? `${accept},.jfif,.heic,.heif`
       : accept;
 
   const isAllowed = (f: File) =>

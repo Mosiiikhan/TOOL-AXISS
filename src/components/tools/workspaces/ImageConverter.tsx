@@ -13,8 +13,11 @@ type Item = {
   file: File;
   from: string;
   isJpeg: boolean;
+  isHeic: boolean;
   url: string;
 };
+
+type Failure = { name: string; heic: boolean };
 
 type Result = {
   id: string;
@@ -46,7 +49,11 @@ const TYPE_LABEL: Record<string, string> = {
   "image/gif": "GIF",
   "image/bmp": "BMP",
   "image/avif": "AVIF",
+  "image/heic": "HEIC",
+  "image/heif": "HEIC",
   ".jfif": "JFIF",
+  ".heic": "HEIC",
+  ".heif": "HEIC",
 };
 
 const LABEL_TO_KEY: Record<string, OutFormat> = {
@@ -55,10 +62,21 @@ const LABEL_TO_KEY: Record<string, OutFormat> = {
   WebP: "webp",
 };
 
+const HEIC_BRANDS = [
+  "heic",
+  "heix",
+  "heim",
+  "heis",
+  "hevc",
+  "hevx",
+  "mif1",
+  "msf1",
+];
+
 const outLabel = (f: OutFormat) => OUTPUTS.find((o) => o.value === f)!.label;
 
 function acceptHint(accept?: string) {
-  if (!accept) return "JPG, PNG, WebP, GIF, BMP, AVIF or JFIF";
+  if (!accept) return "JPG, PNG, WebP, GIF, BMP, AVIF, JFIF or HEIC";
   const names = Array.from(
     new Set(
       accept
@@ -82,8 +100,10 @@ async function sniff(file: File): Promise<string> {
     if (ascii(0, 3) === "GIF") return "GIF";
     if (ascii(0, 4) === "RIFF" && ascii(8, 4) === "WEBP") return "WebP";
     if (b[0] === 0x42 && b[1] === 0x4d) return "BMP";
-    if (ascii(4, 4) === "ftyp" && ["avif", "avis"].includes(ascii(8, 4))) {
-      return "AVIF";
+    if (ascii(4, 4) === "ftyp") {
+      const brand = ascii(8, 4);
+      if (["avif", "avis"].includes(brand)) return "AVIF";
+      if (HEIC_BRANDS.includes(brand)) return "HEIC";
     }
   } catch {
     // neeche wala andaza kaam aayega
@@ -91,6 +111,20 @@ async function sniff(file: File): Promise<string> {
   return (
     TYPE_LABEL[file.type] ?? (file.name.split(".").pop()?.toUpperCase() || "Image")
   );
+}
+
+// HEIC ko library se kholte hain. Library sirf tab load hoti hai jab HEIC file aaye,
+// is liye baqi pages par koi bojh nahi parta.
+async function decodeHeic(file: File): Promise<ImageBitmap> {
+  const { heicTo } = await import("heic-to");
+  const bitmap = (await heicTo({
+    blob: file,
+    type: "bitmap",
+  })) as unknown as ImageBitmap;
+  if (!bitmap || typeof bitmap.width !== "number") {
+    throw new Error("HEIC decode failed");
+  }
+  return bitmap;
 }
 
 async function convertFile(item: Item, fmt: OutFormat, quality: number) {
@@ -103,7 +137,9 @@ async function convertFile(item: Item, fmt: OutFormat, quality: number) {
   }
 
   const mime = OUTPUTS.find((o) => o.value === fmt)!.mime;
-  const bitmap = await createImageBitmap(item.file);
+  const bitmap = item.isHeic
+    ? await decodeHeic(item.file)
+    : await createImageBitmap(item.file);
   try {
     const canvas = document.createElement("canvas");
     canvas.width = bitmap.width;
@@ -132,7 +168,7 @@ export default function ImageConverter({ preset }: WorkspaceProps) {
   const [out, setOut] = useState<OutFormat | null>(preset?.outputFormat ?? null);
   const [quality, setQuality] = useState(90);
   const [results, setResults] = useState<Result[]>([]);
-  const [failed, setFailed] = useState<string[]>([]);
+  const [failed, setFailed] = useState<Failure[]>([]);
   const [busy, setBusy] = useState(false);
 
   const runId = useRef(0);
@@ -141,9 +177,13 @@ export default function ImageConverter({ preset }: WorkspaceProps) {
   const itemUrls = useRef<string[]>([]);
 
   useEffect(() => {
+    const rid = runId;
+    const t = timer;
     const r = resultUrls;
     const i = itemUrls;
     return () => {
+      rid.current++; // chalti conversion ko cancel karo
+      clearTimeout(t.current);
       r.current.forEach((u) => URL.revokeObjectURL(u));
       i.current.forEach((u) => URL.revokeObjectURL(u));
     };
@@ -153,9 +193,11 @@ export default function ImageConverter({ preset }: WorkspaceProps) {
     const id = ++runId.current;
     setBusy(true);
     const done: Result[] = [];
-    const bad: string[] = [];
+    const bad: Failure[] = [];
 
     for (const item of list) {
+      // Naya kaam shuru ho gaya ho to purana yahin band
+      if (id !== runId.current) break;
       try {
         const r = await convertFile(item, fmt, q);
         done.push({
@@ -169,7 +211,7 @@ export default function ImageConverter({ preset }: WorkspaceProps) {
           url: URL.createObjectURL(r.blob),
         });
       } catch {
-        bad.push(item.file.name);
+        bad.push({ name: item.file.name, heic: item.isHeic });
       }
     }
 
@@ -194,17 +236,20 @@ export default function ImageConverter({ preset }: WorkspaceProps) {
       list.map(async (file, i) => {
         const real = await sniff(file);
         const jfifName = /\.jfif$/i.test(file.name);
+        const heic = real === "HEIC";
         return {
           id: `${i}-${file.name}-${file.size}`,
           file,
           from: real === "JPG" && jfifName ? "JFIF" : real,
           isJpeg: real === "JPG",
-          url: URL.createObjectURL(file),
+          isHeic: heic,
+          // HEIC ka preview browser nahi dikha sakta, isliye URL nahi banate
+          url: heic ? "" : URL.createObjectURL(file),
         };
       }),
     );
     itemUrls.current.forEach((u) => URL.revokeObjectURL(u));
-    itemUrls.current = next.map((n) => n.url);
+    itemUrls.current = next.map((n) => n.url).filter(Boolean);
     setItems(next);
     if (out) run(next, out, quality);
   };
@@ -260,19 +305,23 @@ export default function ImageConverter({ preset }: WorkspaceProps) {
   }
 
   const allJpegToJpg = out === "jpg" && items.every((i) => i.isJpeg);
+  const hasHeic = items.some((i) => i.isHeic);
 
   return (
     <div className="space-y-5">
       {/* 1. Natija (jab conversion ho jaye) */}
       {(results.length > 0 || failed.length > 0 || (busy && out)) && (
         <div
+          aria-live="polite"
           className={`space-y-4 transition-opacity duration-300 ${
             busy ? "opacity-60" : "opacity-100"
           }`}
         >
           {results.length === 0 && busy && (
             <p className="rounded-2xl border border-brand-300 bg-white p-6 text-center font-semibold text-brand-700">
-              Converting your image...
+              {hasHeic
+                ? "Opening your HEIC photo and converting it..."
+                : "Converting your image..."}
             </p>
           )}
 
@@ -380,10 +429,21 @@ export default function ImageConverter({ preset }: WorkspaceProps) {
           })}
 
           {failed.length > 0 && (
-            <p className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800">
-              We could not convert: {failed.join(", ")}. Your browser may not
-              support this file or the chosen format. Try another format.
-            </p>
+            <div
+              role="alert"
+              className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800"
+            >
+              <p className="font-semibold">
+                We could not convert: {failed.map((f) => f.name).join(", ")}
+              </p>
+              <p className="mt-1">
+                {failed.some((f) => f.heic) &&
+                  "A HEIC photo could not be opened. Please try again, or try another browser. "}
+                Your browser may not support this file or the chosen format.
+                Very large pictures can also fail, so try a smaller one or
+                another format.
+              </p>
+            </div>
           )}
         </div>
       )}
@@ -399,12 +459,18 @@ export default function ImageConverter({ preset }: WorkspaceProps) {
               key={it.id}
               className="flex items-center gap-3 rounded-xl border border-brand-200 bg-brand-50 p-2.5"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={it.url}
-                alt={it.file.name}
-                className="size-12 shrink-0 rounded-lg border border-brand-200 object-cover"
-              />
+              {it.isHeic ? (
+                <span className="grid size-12 shrink-0 place-items-center rounded-lg border border-brand-200 bg-brand-100 text-xs font-extrabold text-brand-700">
+                  HEIC
+                </span>
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={it.url}
+                  alt={it.file.name}
+                  className="size-12 shrink-0 rounded-lg border border-brand-200 object-cover"
+                />
+              )}
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-semibold text-brand-900">
                   {it.file.name}
@@ -422,6 +488,8 @@ export default function ImageConverter({ preset }: WorkspaceProps) {
         <p className="mt-2 text-xs text-slate-500">
           We looked inside the {items.length === 1 ? "file" : "files"} to find
           the real format.
+          {hasHeic &&
+            " HEIC photos are opened on your device first, which can take a few seconds."}
         </p>
 
         <div className="mt-5 flex items-center justify-between">
