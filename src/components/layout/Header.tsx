@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button";
 import { SITE_NAME } from "@/lib/tools/constants";
 
 const links = [
+  { href: "/", label: "Home" },
   { href: "/tools", label: "Tools" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -50,8 +51,11 @@ export default function Header() {
     };
   }, [isOpen]);
 
+  // Home sirf "/" par active ho, baqi links apne andar ke pages par bhi
   const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(`${href}/`);
+    href === "/"
+      ? pathname === "/"
+      : pathname === href || pathname.startsWith(`${href}/`);
 
   const logo = (
     <>

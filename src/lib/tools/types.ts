@@ -13,7 +13,11 @@ export interface Tool {
   faqs: ToolFAQ[];
 }
 
-export type ToolId = "image-compressor" | "image-converter" | "image-resizer";
+export type ToolId =
+  | "image-compressor"
+  | "image-converter"
+  | "image-resizer"
+  | "image-video-metadata-viewer";
 
 // Tool ko page ke hisaab se pehle se set karne wali settings
 export interface ToolPreset {

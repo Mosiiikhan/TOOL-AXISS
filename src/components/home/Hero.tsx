@@ -29,8 +29,9 @@ export default function Hero() {
           </h1>
 
           <p className="mx-auto mt-5 max-w-xl text-base text-slate-600 sm:text-lg">
-            Compress, convert and resize your images in seconds. No sign-up,
-            no software to install, and your files never leave your device.
+            Compress, convert and resize your images, count your words and more.
+            No sign-up, no software to install, and your files never leave your
+            device.
           </p>
 
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
@@ -43,58 +44,110 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* demo card (sirf dekhne ke liye) */}
+        {/* 3D demo card (sirf dekhne ke liye) */}
         <div
           aria-hidden
-          className="mx-auto mt-12 max-w-md rounded-3xl border-2 border-brand-300 bg-white p-4 shadow-xl shadow-brand-600/10 sm:mt-16"
+          className="mx-auto mt-14 max-w-md [perspective:1400px] sm:mt-20"
         >
-          <div className="flex items-center gap-4">
-            <div className="grid size-20 shrink-0 place-items-center rounded-2xl bg-linear-to-br from-brand-300 to-brand-500 text-white">
+          <div className="relative [transform-style:preserve-3d] [transform:rotateX(14deg)_rotateY(-10deg)] transition-transform duration-700 ease-out hover:[transform:rotateX(4deg)_rotateY(-3deg)] motion-reduce:transition-none">
+            {/* peeche ki parten */}
+            <div
+              className="absolute inset-0 rounded-3xl bg-brand-300/40 ring-1 ring-brand-300"
+              style={{ transform: "translateZ(-80px) translateY(26px) scale(0.9)" }}
+            />
+            <div
+              className="absolute inset-0 rounded-3xl bg-brand-200/70 ring-1 ring-brand-300"
+              style={{ transform: "translateZ(-40px) translateY(13px) scale(0.95)" }}
+            />
+
+            {/* asli card */}
+            <div
+              className="relative rounded-3xl border-2 border-brand-300 bg-white p-4 shadow-2xl shadow-brand-600/20"
+              style={{ transform: "translateZ(0px)" }}
+            >
+              <div className="flex items-center gap-4">
+                <div className="grid size-20 shrink-0 place-items-center rounded-2xl bg-linear-to-br from-brand-300 to-brand-500 text-white">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="size-9"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="3" y="4" width="18" height="16" rx="3" />
+                    <circle cx="9" cy="10" r="1.8" />
+                    <path d="M21 16l-5-5-8 8" />
+                  </svg>
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-bold text-emerald-600">
+                    Ready to download
+                  </p>
+                  <p className="truncate font-display text-lg font-bold text-brand-900">
+                    holiday-photo.jpg
+                  </p>
+                </div>
+                <span className="shrink-0 rounded-2xl bg-emerald-100 px-3 py-1.5 font-display text-xl font-extrabold text-emerald-700">
+                  -84%
+                </span>
+              </div>
+              <div className="mt-4 flex items-end justify-between">
+                <p className="text-sm text-slate-600">
+                  New size
+                  <span className="block font-display text-2xl font-extrabold text-brand-700">
+                    380 KB
+                  </span>
+                </p>
+                <p className="text-right text-sm text-slate-500">
+                  Original size
+                  <span className="block font-semibold text-slate-700">
+                    2.4 MB
+                  </span>
+                </p>
+              </div>
+              <div className="mt-2 h-4 overflow-hidden rounded-full bg-brand-100">
+                <div className="h-full w-[16%] rounded-full bg-linear-to-r from-brand-400 to-brand-600" />
+              </div>
+            </div>
+
+            {/* tairte hue badge (sab se aage) */}
+            <div
+              className="absolute -left-3 top-8 flex items-center gap-2 rounded-2xl bg-brand-900 px-3.5 py-2 text-sm font-semibold text-white shadow-xl"
+              style={{ transform: "translateZ(70px)" }}
+            >
               <svg
                 viewBox="0 0 24 24"
-                className="size-9"
+                className="size-4"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.4"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <rect x="3" y="4" width="18" height="16" rx="3" />
-                <circle cx="9" cy="10" r="1.8" />
-                <path d="M21 16l-5-5-8 8" />
+                <rect x="5" y="11" width="14" height="9" rx="2" />
+                <path d="M8 11V8a4 4 0 0 1 8 0v3" />
               </svg>
+              Private
             </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-sm font-bold text-emerald-600">
-                Ready to download
-              </p>
-              <p className="truncate font-display text-lg font-bold text-brand-900">
-                holiday-photo.jpg
-              </p>
+            <div
+              className="absolute -right-3 -top-4 rounded-2xl bg-emerald-400 px-3.5 py-2 font-display text-sm font-extrabold text-emerald-950 shadow-xl"
+              style={{ transform: "translateZ(90px)" }}
+            >
+              Free
             </div>
-            <span className="shrink-0 rounded-2xl bg-emerald-100 px-3 py-1.5 font-display text-xl font-extrabold text-emerald-700">
-              -84%
-            </span>
-          </div>
-          <div className="mt-4 flex items-end justify-between">
-            <p className="text-sm text-slate-600">
-              New size
-              <span className="block font-display text-2xl font-extrabold text-brand-700">
-                380 KB
-              </span>
-            </p>
-            <p className="text-right text-sm text-slate-500">
-              Original size
-              <span className="block font-semibold text-slate-700">2.4 MB</span>
-            </p>
-          </div>
-          <div className="mt-2 h-4 overflow-hidden rounded-full bg-brand-100">
-            <div className="h-full w-[16%] rounded-full bg-linear-to-r from-brand-400 to-brand-600" />
+            <div
+              className="absolute -bottom-4 right-6 rounded-2xl bg-white px-3.5 py-2 font-display text-sm font-extrabold text-brand-700 shadow-xl ring-1 ring-brand-200"
+              style={{ transform: "translateZ(60px)" }}
+            >
+              WebP
+            </div>
           </div>
         </div>
 
         {/* trust points */}
-        <ul className="mx-auto mt-10 grid max-w-3xl gap-3 sm:grid-cols-3">
+        <ul className="mx-auto mt-14 grid max-w-3xl gap-3 sm:grid-cols-3">
           {TRUST.map((t) => (
             <li
               key={t.title}
