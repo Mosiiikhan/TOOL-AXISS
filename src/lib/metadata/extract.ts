@@ -212,7 +212,7 @@ async function extractVideo(
   let mediainfo;
   try {
     // Runtime par browser se load hota hai; bundler is URL ko nahi dekhta
-    const src = "/wasm/mediainfo.js";
+    const src = new URL("/wasm/mediainfo.js", window.location.href).href;
     const mod = await import(/* webpackIgnore: true */ /* turbopackIgnore: true */ src);
     const factory = mod.default ?? mod.mediaInfoFactory;
     mediainfo = await factory({
