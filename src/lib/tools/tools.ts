@@ -61,6 +61,28 @@ export const tools: Tool[] = [
       },
     ],
   },
+  {
+    slug: "metadata-remover",
+    title:
+      "Metadata Remover - Remove EXIF, GPS and Hidden Data from Photos and Videos",
+    description:
+      "Remove location, camera details and other hidden data from JPG, PNG, WebP, MP4 and MOV files. Free, and your file never leaves your device.",
+    category: "image",
+    faqs: [
+      {
+        q: "Does it change my picture or video?",
+        a: "For photos, only the hidden data blocks are removed and the picture is not compressed again. In a JPEG, a small rotation tag may be kept so the photo does not turn sideways. For videos, the metadata is blanked in place and the picture and sound are not touched.",
+      },
+      {
+        q: "Is my file uploaded?",
+        a: "No. Everything happens inside your browser and your file is never sent anywhere.",
+      },
+      {
+        q: "What can this tool not remove?",
+        a: "HEIC and AVIF photos and other video formats are not supported yet. It also cannot remove what is visible in the picture itself, like faces or number plates, or extra data tracks that some videos carry.",
+      },
+    ],
+  },
 ];
 
 export const getToolBySlug = (slug: string) =>

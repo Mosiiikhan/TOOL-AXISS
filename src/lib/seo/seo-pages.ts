@@ -1,4 +1,4 @@
-import type { SeoPage } from "./types";
+import type { SeoPage } from "../tools/types";
 
 export const seoPages: SeoPage[] = [
   // ---------- COMPRESS ----------

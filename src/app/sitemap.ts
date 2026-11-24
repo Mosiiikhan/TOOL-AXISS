@@ -1,6 +1,6 @@
-import type { MetadataRoute } from "next";
+﻿import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/tools/constants";
-import { publishedSeoPages } from "@/lib/tools/seo-pages";
+import { publishedSeoPages } from "@/lib/seo";
 import { tools } from "@/lib/tools/tools";
 
 const base = SITE_URL.replace(/\/$/, "");

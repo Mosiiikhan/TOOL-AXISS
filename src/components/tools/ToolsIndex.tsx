@@ -1,6 +1,6 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import ToolCard from "@/components/tools/ToolCard";
-import { publishedSeoPages } from "@/lib/tools/seo-pages";
+import { publishedSeoPages } from "@/lib/seo";
 import { tools } from "@/lib/tools/tools";
 import type { ToolId } from "@/lib/tools/types";
 

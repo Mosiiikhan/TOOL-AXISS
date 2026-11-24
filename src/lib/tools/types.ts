@@ -17,7 +17,8 @@ export type ToolId =
   | "image-compressor"
   | "image-converter"
   | "image-resizer"
-  | "image-video-metadata-viewer";
+  | "image-video-metadata-viewer"
+  | "metadata-remover";
 
 // Tool ko page ke hisaab se pehle se set karne wali settings
 export interface ToolPreset {

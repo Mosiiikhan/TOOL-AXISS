@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/seo/JsonLd";
 import ToolPageShell from "@/components/tools/ToolPageShell";
 import { toolWorkspaces } from "@/components/tools/workspaces";
 import { buildMetadata } from "@/lib/metadata";
 import { toolJsonLd } from "@/lib/seo/json-ld";
-import { getSeoPage, publishedSeoPages } from "@/lib/tools/seo-pages";
+import { getSeoPage, publishedSeoPages } from "@/lib/seo";
 import { getRelatedTools, getToolBySlug, tools } from "@/lib/tools/tools";
 import type { SeoPage, Tool } from "@/lib/tools/types";
 

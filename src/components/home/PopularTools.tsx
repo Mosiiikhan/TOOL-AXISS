@@ -1,6 +1,6 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import ToolCard from "@/components/tools/ToolCard";
-import { getSeoPage } from "@/lib/tools/seo-pages";
+import { getSeoPage } from "@/lib/seo";
 import { tools } from "@/lib/tools/tools";
 
 const POPULAR = [

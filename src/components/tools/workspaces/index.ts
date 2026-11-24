@@ -7,4 +7,5 @@ export const toolWorkspaces: Record<string, ComponentType<WorkspaceProps>> = {
   "image-converter": dynamic(() => import("./ImageConverter")),
   "image-resizer": dynamic(() => import("./ImageResizer")),
   "image-video-metadata-viewer": dynamic(() => import("./MetadataViewer")),
+  "metadata-remover": dynamic(() => import("./MetadataRemover")),
 };
