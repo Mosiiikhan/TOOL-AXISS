@@ -18,7 +18,10 @@ export type ToolId =
   | "image-converter"
   | "image-resizer"
   | "image-video-metadata-viewer"
-  | "metadata-remover";
+  | "metadata-remover"
+  | "image-to-pdf"
+  | "pdf-to-jpg"
+  | "pdf-to-png";
 
 // Tool ko page ke hisaab se pehle se set karne wali settings
 export interface ToolPreset {

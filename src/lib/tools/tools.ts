@@ -83,6 +83,61 @@ export const tools: Tool[] = [
       },
     ],
   },
+    {
+    slug: "image-to-pdf",
+    title: "Image to PDF Converter - Combine JPG, PNG and WebP into One PDF",
+    description:
+      "Turn your images into a PDF right in your browser. Free, no signup, and your files never leave your device.",
+    category: "pdf",
+    faqs: [
+      {
+        q: "Are my images uploaded to a server?",
+        a: "No. The PDF is created inside your browser, so your images stay on your device.",
+      },
+      {
+        q: "Can I put many images in one PDF?",
+        a: "Yes. Each image becomes one page, and you can set the order before you create the file.",
+      },
+    ],
+  },
+  {
+    slug: "pdf-to-jpg",
+    title: "PDF to JPG Converter - Turn PDF Pages into JPG Images",
+    description:
+      "Convert PDF pages to JPG images in your browser. Free, no signup, and your PDF never leaves your device.",
+    category: "pdf",
+    faqs: [
+      {
+        q: "Is my PDF uploaded to a server?",
+        a: "No. The pages are turned into images inside your browser, so your PDF stays on your device.",
+      },
+      {
+        q: "Can I choose which pages to convert?",
+        a: "Yes. You can pick the pages you need instead of converting the whole PDF.",
+      },
+      {
+        q: "Will the text in the image be selectable?",
+        a: "No. Each page becomes a picture, so the text is part of the image and cannot be selected or copied.",
+      },
+    ],
+  },
+  {
+    slug: "pdf-to-png",
+    title: "PDF to PNG Converter - Turn PDF Pages into PNG Images",
+    description:
+      "Convert PDF pages to sharp PNG images in your browser. Free, no signup, and your PDF never leaves your device.",
+    category: "pdf",
+    faqs: [
+      {
+        q: "Is my PDF uploaded to a server?",
+        a: "No. The pages are turned into images inside your browser, so your PDF stays on your device.",
+      },
+      {
+        q: "When should I choose PNG instead of JPG?",
+        a: "PNG keeps text and sharp lines clean without compression marks, but the files are bigger. JPG is smaller and works well for photos.",
+      },
+    ],
+  },
 ];
 
 export const getToolBySlug = (slug: string) =>

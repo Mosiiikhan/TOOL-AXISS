@@ -8,4 +8,7 @@ export const toolWorkspaces: Record<string, ComponentType<WorkspaceProps>> = {
   "image-resizer": dynamic(() => import("./ImageResizer")),
   "image-video-metadata-viewer": dynamic(() => import("./MetadataViewer")),
   "metadata-remover": dynamic(() => import("./MetadataRemover")),
+  "image-to-pdf": dynamic(() => import("./ImageToPdf")),
+  "pdf-to-jpg": dynamic(() => import("./PdfToJpg")),
+  "pdf-to-png": dynamic(() => import("./PdfToPng")),
 };
